@@ -1,3 +1,6 @@
+
+
+
 <HTML>
 
 <head>
@@ -71,14 +74,14 @@
 <body>
     <div class="box">
         <form name=calcform action="javascript:enter()">
-            <input type="reset" class="button" value="C">
+            <input type="reset" class="button letter" value="C" id="esc">
             <input type="" class="textbox" name=textbox style="text-align:right" onkeypress='return event.keyCode >= 42 && event.keyCode <= 57' readonly>
             <br>
             </input>
             <input type=button id="9" class="button letter" name=btn9 value=9 onclick="writenum(btn9.value)">
             <input type=button id="8" class="button letter" name=btn8 value=8 onclick="writenum(btn8.value)">
             <input type=button id="7" class="button letter" name=btn7 value=7 onclick="writenum(btn7.value)">
-            <input type=button id="+" class="button letter" name=addbtn value=+ onclick="writenum(addbtn.value)">
+            <input type=button id="plus" class="button letter" name=addbtn value=+ onclick="writenum(addbtn.value)">
             <br>
             <input type=button id="6" class="button letter" name=btn6 value=6 onclick="writenum(btn6.value)">
             <input type=button id="5" class="button letter" name=btn5 value=5 onclick="writenum(btn5.value)">
@@ -88,12 +91,12 @@
             <input type=button id="3" class="button letter" name=btn3 value=3 onclick="writenum(btn3.value)">
             <input type=button id="2" class="button letter" name=btn2 value=2 onclick="writenum(btn2.value)">
             <input type=button id="1" class="button letter" name=btn1 value=1 onclick="writenum(btn1.value)">
-            <input type=button id="*" class="button letter" name=btnmul value="x" id="*" onclick="writenum(btnmul.id)">
+            <input type=button id="multiply" class="button letter" name=btnmul value="x" id="*" onclick="writenum(btnmul.id)">
             <br>
             <input type=button id="0" class="button letter" name=btn0 value=0 onclick="writenum(btn0.value)">
-            <input type=button id="." class="button letter" name=dotbtn value=. onclick="writenum(dotbtn.value)">
+            <input type=button id="dot" class="button letter" name=dotbtn value=. onclick="writenum(dotbtn.value)">
             <input type=submit id="=" class="button letter equalbutton" name=eqlbtn onclick="javascript:enter()" value==>
-            <input type=button id="/" class="button letter" name=divbtn value=/ id="/" onclick="writenum(divbtn.id)">
+            <input type=button id="divide" class="button letter" name=divbtn value=/ id="/" onclick="writenum(divbtn.id)">
         </form>
     </div>
     <script type="text/javascript">
@@ -130,12 +133,39 @@
     }
 
 
+
     $(document).keypress(function(e) {
 
-        var which_letter = String.fromCharCode(e.which);
-        $('#' + which_letter + '').addClass('abc');
+    var which_letter = String.fromCharCode(e.which);
+        console.log(which_letter);
+        if (which_letter === "+") {
+
+            $('#plus').addClass('abc');
+
+        } else  if (which_letter === "/") {
+
+            $('#divide').addClass('abc');
+
+        } else  if (which_letter === "*") {
+
+            $('#multiply').addClass('abc');
+
+        }  
+        else  if (which_letter === ".") {
+
+            $('#dot').addClass('abc');
+
+        }
+        else  if (which_letter === "escape") {
+
+            $('#esc').addClass('abc');
+
+        }
+
+        else {     $('#' + which_letter + '').addClass('abc'); }
 
     });
+
 
     $(document).keyup(function() {
         $(".letter").removeClass('abc');
