@@ -1,10 +1,13 @@
-
-
 <HTML>
 
 <head>
+
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <link rel="icon" href="icon.png">
+
     <style type="text/css">
+
+
     body {
         background: #eeeeee;
     }
@@ -19,7 +22,6 @@
     }
     
     .abc {
-        
         box-shadow: 0px 3px 32px -4px rgba(0, 0, 0, 0.75);
         border-color: #3d3d3e;
         background: black !important;
@@ -65,7 +67,6 @@
         text-align: center;
         line-height: 19px;
         outline: none;
-
     }
     </style>
 </head>
@@ -74,7 +75,7 @@
     <div class="box">
         <form name=calcform action="javascript:enter()">
             <input type="reset" class="button letter" value="C" id="esc">
-            <input type="" class="textbox" name=textbox style="text-align:right" onkeypress='return event.keyCode >= 42 && event.keyCode <= 57' readonly>
+            <input type="" value="" id="textbox" class="textbox" name=textbox style="text-align:right" onkeypress='return event.keyCode >= 42 && event.keyCode <= 57' readonly>
             <br>
             </input>
             <input type=button id="9" class="button letter" name=btn9 value=9 onclick="writenum(btn9.value)">
@@ -99,79 +100,73 @@
         </form>
     </div>
     <script type="text/javascript">
+    var tb = document.getElementById('textbox');
+
     function writenum(n1) {
         calcform.textbox.value += n1;
     }
 
     function enter() {
 
-        calcform.textbox.value = eval(calcform.textbox.value);
+        tb.value = eval(tb.value);
     }
 
-
-
-    document.body.onkeydown = function(e) {
-        if (e.keyCode === 13) {
-            if (calcform.textbox.value === "") {
-               console.log("workgin");
-            } else {
-            enter();
-             $('#equal').addClass('abc');
-        }
-    }};
-
-
     document.onkeydown = function(e) {
+
+        if (e.keyCode === 13) {
+
+            if (tb.value === "") {
+                
+            } else {
+                enter();
+                $('#equal').addClass('abc');
+            }
+        }
+
         if (e.keyCode === 27) {
 
             calcform.textbox.value = "";
-             $('#esc').addClass('abc');
-
+            $('#esc').addClass('abc');
 
         }
+
+        if (e.keyCode == 8) {
+            tb.value = tb.value.slice(0, -1);
+
+        }
+
     };
 
     document.body.onkeypress = function(e) {
         if (e.keyCode >= 42 && e.keyCode <= 57) {
-            calcform.textbox.value = calcform.textbox.value + String.fromCharCode(e.which);
+            tb.value = tb.value + String.fromCharCode(e.which);
         }
     }
 
-
-
     $(document).keypress(function(e) {
 
-    var which_letter = String.fromCharCode(e.which);
+        var which_letter = String.fromCharCode(e.which);
         if (which_letter === "+") {
 
             $('#plus').addClass('abc');
 
-        } else  if (which_letter === "/") {
+        } else if (which_letter === "/") {
 
             $('#divide').addClass('abc');
 
-        } else  if (which_letter === "*") {
+        } else if (which_letter === "*") {
 
             $('#multiply').addClass('abc');
 
-        }  
-        else  if (which_letter === ".") {
+        } else if (which_letter === ".") {
 
             $('#dot').addClass('abc');
 
-        }
-        else  if (which_letter === "escape") {
-
-            $('#esc').addClass('abc');
-
-        }
-    
-        else {     
-            $('#' + which_letter + '').addClass('abc'); 
+        } else {
+            $('#' + which_letter + '').addClass('abc');
         }
 
     });
-
 
     $(document).keyup(function() {
         $(".letter").removeClass('abc');
